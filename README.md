@@ -1,3 +1,3 @@
-## QWFWD -- a QuakeWorld forwarding proxy
+## QTV
 
-This is the Docker version of QWFWD.
+This is the Docker version of QTV.
