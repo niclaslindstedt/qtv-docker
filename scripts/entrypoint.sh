@@ -1,20 +1,27 @@
 #!/bin/sh
 
 error() {
-  echo $1
+  echo
+  echo "ERROR: $1"
   exit 1
 }
 
-echo "Setting defaults..."
-[ ! -s "$HOSTNAME" ] && export HOSTNAME="nQuake QTV"
-[ ! -s "$LISTEN_PORT" ] && export LISTEN_PORT=28000
-[ ! -s "$ADMIN_PASSWORD" ] && export ADMIN_PASSWORD="changeme"
-[ ! -s "$QTV_PASSWORD" ] && export QTV_PASSWORD="changeme"
+[ -z "$ADMIN_PASSWORD" ] && error "Please set an ADMIN_PASSWORD"
+[ "$ADMIN_PASSWORD" = "changeme" ] && error "Please change the ADMIN_PASSWORD"
 
-echo "Configuring QTV..."
+echo "=============== nQuake QTV ==============="
+echo "Using settings:"
+[ -z "$HOSTNAME" ] && export HOSTNAME="nQuake QTV"; echo " * HOSTNAME=$HOSTNAME"
+[ -z "$QTV_PASSWORD" ] && export QTV_PASSWORD=""; echo " * QTV_PASSWORD=$QTV_PASSWORD"
+echo " * ADMIN_PASSWORD=$(echo $ADMIN_PASSWORD | sed 's/./*/g')"
+echo
+
+echo -n "Detecting external IP..."
+export ADDRESS=$(dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | awk -F'"' '{ print $2}')
+[ -z "$ADDRESS" ] && error "Could not detect external IP" || echo "OK ($ADDRESS)"
+
+echo -n "Generating configuration files..."
 envsubst < /qtv/qtv.cfg.template > /qtv/qtv.cfg || error "Could not configure QTV"
-
-# Add target servers to end of qtv.cfg
 added=0
 servers=$(echo $TARGET_SERVERS | tr "," "\n")
 for server in $servers
@@ -23,7 +30,12 @@ do
   echo "qtv $server" >> /qtv/qtv.cfg
 done
 [ "$added" = "0" ] && error "No target servers specified"
+echo "OK"
 
-echo "Starting QTV"
+echo
+echo "Initialization complete!"
+echo
+
+echo -n "============== Starting QTV =============="
 cd /qtv
 ./qtv.bin +exec qtv.cfg || error "Could not start QTV"

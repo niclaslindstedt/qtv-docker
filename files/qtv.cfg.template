@@ -1,9 +1,11 @@
-mvdport                  $LISTEN_PORT
 hostname                 "$HOSTNAME"
 admin_password           "$ADMIN_PASSWORD"
 qtv_password             "$QTV_PASSWORD"
-address                  "localhost:$LISTEN_PORT"
 
+masters                  master.quakeservers.net:27000 qwmaster.ocrana.de:27000 qwmaster.fodquake.net:27000
+
+address                  "$ADDRESS:28000"
+mvdport                  28000
 allow_http               1
 hosttitle                "Powered by nQuakesv" // the <h2> subtitle shown on the qtv website
 maxservers               100
