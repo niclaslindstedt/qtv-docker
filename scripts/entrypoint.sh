@@ -36,6 +36,6 @@ echo
 echo "Initialization complete!"
 echo
 
-echo -n "============== Starting QTV =============="
+echo "============== Starting QTV =============="
 cd /qtv
 ./qtv.bin +exec qtv.cfg || error "Could not start QTV"
