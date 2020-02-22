@@ -1,16 +1,18 @@
-hostname "$HOSTNAME"
-admin_password "$QTV_PASSWORD"
-mvdport $LISTEN_PORT
-address $LISTEN_IP:$LISTEN_PORT
-maxclients 100
-maxservers 100
-floodprot 4 2 2
-allow_http 1
-allow_download_other 1
-allow_download_demos 1
-allow_download_maps 1
-allow_download_sounds 1
-allow_download_models 1
-allow_download_skins 1
-allow_download 1
+mvdport               $LISTEN_PORT
+hostname              $HOSTNAME
+admin_password        $QTV_PASSWORD
 
+floodprot             4 2 2  // 4 messages in 2 seconds, 2 seconds silence
+allow_http            1      // Enable HTTP page
+allow_download        1      // Enables downloads from QTV (0=disabled, 1=enabled)
+allow_download_other  1      //
+allow_download_demos  1      //
+allow_download_maps   1      //
+allow_download_sounds 1      // All of these settings control the items that
+allow_download_models 1      // players can download through QTV when QTV
+allow_download_skins  1      // has been configured properly.
+
+//***************************************
+// How to connect:
+// qtv $LISTEN_IP:$LISTEN_PORT $QTV_PASSWORD
+//***************************************
