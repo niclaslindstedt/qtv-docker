@@ -1,18 +1,29 @@
-mvdport               $LISTEN_PORT
-hostname              $HOSTNAME
-admin_password        $QTV_PASSWORD
+mvdport                  $LISTEN_PORT
+hostname                 "$HOSTNAME"
+admin_password           "$ADMIN_PASSWORD"
+qtv_password             "$QTV_PASSWORD"
+address                  "localhost:$LISTEN_PORT"
 
-floodprot             4 2 2  // 4 messages in 2 seconds, 2 seconds silence
-allow_http            1      // Enable HTTP page
-allow_download        1      // Enables downloads from QTV (0=disabled, 1=enabled)
-allow_download_other  1      //
-allow_download_demos  1      //
-allow_download_maps   1      //
-allow_download_sounds 1      // All of these settings control the items that
-allow_download_models 1      // players can download through QTV when QTV
-allow_download_skins  1      // has been configured properly.
+allow_http               1
+hosttitle                "Powered by nQuakesv" // the <h2> subtitle shown on the qtv website
+maxservers               100
+maxclients               1000
+upstream_timeout         60
+downstream_timeout       60
+parse_delay              7
+qtv_reconnect_delay      30
+qtv_max_reconnect_delay  86400
+qtv_backoff              1
+developer                0
+demo_dir                 "demos"               // where to look for demos
+floodprot                4 2 2                 // 4 messages in 2 seconds, 2 seconds silence
 
-//***************************************
-// How to connect:
-// qtv $LISTEN_IP:$LISTEN_PORT $QTV_PASSWORD
-//***************************************
+allow_download           1                     // enables downloads from QTV (0=disabled, 1=enabled)
+allow_download_other     1
+allow_download_demos     1
+allow_download_maps      1
+allow_download_sounds    1
+allow_download_models    1
+allow_download_skins     1
+
+// target servers:
