@@ -6,8 +6,8 @@ error() {
 }
 
 echo "Setting defaults..."
-[ ! -s "$HOSTNAME" ] && export HOSTNAME="nQuake KTX Server"
-[ ! -s "$LISTEN_PORT" ] && export LISTEN_PORT=27500
+[ ! -s "$HOSTNAME" ] && export HOSTNAME="nQuake QTV"
+[ ! -s "$LISTEN_PORT" ] && export LISTEN_PORT=28000
 [ ! -s "$ADMIN_PASSWORD" ] && export ADMIN_PASSWORD="changeme"
 [ ! -s "$QTV_PASSWORD" ] && export QTV_PASSWORD="changeme"
 
