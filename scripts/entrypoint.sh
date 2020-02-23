@@ -14,11 +14,15 @@ echo "Using settings:"
 [ -z "$HOSTNAME" ] && export HOSTNAME="nQuake QTV"; echo " * HOSTNAME=$HOSTNAME"
 [ -z "$QTV_PASSWORD" ] && export QTV_PASSWORD=""; echo " * QTV_PASSWORD=$QTV_PASSWORD"
 echo " * ADMIN_PASSWORD=$(echo $ADMIN_PASSWORD | sed 's/./*/g')"
-echo
 
-echo -n "Detecting external IP..."
-export ADDRESS=$(dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | awk -F'"' '{ print $2}')
-[ -z "$ADDRESS" ] && error "Could not detect external IP" || echo "OK ($ADDRESS)"
+[ -z "$SERVER_IP" ] && {
+  echo
+  echo -n "Detecting external IP..."
+  export ADDRESS=$(dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | awk -F'"' '{ print $2}')
+  [ -z "$ADDRESS" ] && error "Could not detect external IP" || echo "OK ($ADDRESS)"
+} || {
+  export ADDRESS=$SERVER_IP; echo " * SERVER_IP=$SERVER_IP"
+}
 
 echo -n "Generating configuration files..."
 envsubst < /qtv/qtv.cfg.template > /qtv/qtv.cfg || error "Could not configure QTV"
