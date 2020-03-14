@@ -11,6 +11,6 @@ RUN apt-get update && apt-get install -y gettext dnsutils \
   && rm -rf /var/lib/apt/lists/*
 COPY --from=build /build/qtv/qtv.bin ./qtv.bin
 COPY files .
-COPY scripts/health_check.sh /
+COPY scripts/healthcheck.sh /
 COPY scripts/entrypoint.sh /
 ENTRYPOINT ["/entrypoint.sh"]
